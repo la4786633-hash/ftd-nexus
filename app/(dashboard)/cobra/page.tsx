@@ -1,5 +1,6 @@
 'use client'
 
+export const dynamic = 'force-dynamic'
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
 import { Kanban, School, BarChart3, Activity, Plus, Download, Filter } from 'lucide-react'
