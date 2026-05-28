@@ -2,400 +2,64 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ============================================================
-   FTD NEXUS — Global Styles
-   ============================================================ */
-
 @layer base {
-  :root {
-    /* Brand */
-    --color-navy: #0A1628;
-    --color-royal: #1A3A6B;
-    --color-brand: #1565C0;
-    --color-coral: #FF7A59;
-
-    /* Surfaces */
-    --color-page: #F4F5F7;
-    --color-card: #FFFFFF;
-    --color-border: rgba(9, 30, 66, 0.10);
-    --color-border-strong: rgba(9, 30, 66, 0.25);
-
-    /* Text */
-    --color-ink-1: #172B4D;
-    --color-ink-2: #6B778C;
-    --color-ink-3: #B3BAC5;
-
-    /* Status */
-    --color-ok: #00875A;
-    --color-ok-bg: #E3FCEF;
-    --color-ok-text: #006644;
-    --color-warning: #FF991F;
-    --color-warning-bg: #FFFAE6;
-    --color-warning-text: #974F0C;
-    --color-danger: #DE350B;
-    --color-danger-bg: #FFEBE6;
-    --color-danger-text: #BF2600;
-
-    /* Sidebar */
-    --sidebar-width: 220px;
-    --sidebar-collapsed: 56px;
-    --topbar-height: 52px;
-  }
-
-  * {
-    box-sizing: border-box;
-  }
-
-  html {
-    scroll-behavior: smooth;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-
+  * { box-sizing: border-box; }
   body {
-    background-color: var(--color-page);
-    color: var(--color-ink-1);
-    font-family: var(--font-sans), system-ui, sans-serif;
-  }
-
-  /* Custom scrollbar */
-  ::-webkit-scrollbar { width: 5px; height: 5px; }
-  ::-webkit-scrollbar-track { background: transparent; }
-  ::-webkit-scrollbar-thumb { background: var(--color-border-strong); border-radius: 10px; }
-  ::-webkit-scrollbar-thumb:hover { background: var(--color-ink-3); }
-
-  /* Focus rings */
-  *:focus-visible {
-    outline: 2px solid var(--color-brand);
-    outline-offset: 2px;
-    border-radius: 4px;
+    @apply bg-gray-50 text-gray-900;
+    font-family: var(--font-inter), system-ui, sans-serif;
   }
 }
 
 @layer components {
-  /* ============================================================
-     LAYOUT
-     ============================================================ */
-
-  .app-shell {
-    display: flex;
-    min-height: 100dvh;
-    overflow: hidden;
-  }
-
-  .sidebar {
-    width: var(--sidebar-width);
-    flex-shrink: 0;
-    background: var(--color-navy);
-    display: flex;
-    flex-direction: column;
-    position: fixed;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    z-index: 40;
-    transition: width 0.2s ease;
-  }
-
-  .main-content {
-    margin-left: var(--sidebar-width);
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    min-height: 100dvh;
-    min-width: 0;
-  }
-
-  .topbar {
-    height: var(--topbar-height);
-    background: #fff;
-    border-bottom: 1px solid var(--color-border);
-    position: sticky;
-    top: 0;
-    z-index: 30;
-    display: flex;
-    align-items: center;
-    padding: 0 1rem;
-    justify-content: space-between;
-    flex-shrink: 0;
-  }
-
-  .page-content {
-    padding: 1rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-    flex: 1;
-  }
-
-  /* ============================================================
-     CARDS
-     ============================================================ */
-
   .card {
-    @apply bg-white border border-surface-border rounded-xl p-4;
+    @apply bg-white border border-gray-200 rounded-xl p-4;
   }
-
-  .card-sm {
-    @apply bg-white border border-surface-border rounded-lg p-3;
-  }
-
   .card-hover {
-    @apply transition-shadow duration-150 hover:shadow-card-hover cursor-pointer;
+    @apply card hover:shadow-md transition-shadow duration-200;
   }
-
-  /* ============================================================
-     KPI CARDS
-     ============================================================ */
-
-  .kpi-card {
-    @apply bg-white border border-surface-border rounded-xl p-3 border-t-2;
-  }
-
-  .kpi-label {
-    @apply text-2xs font-medium tracking-wider text-ink-secondary uppercase;
-  }
-
-  .kpi-value {
-    @apply text-2xl font-medium leading-tight mt-1;
-  }
-
-  .kpi-trend {
-    @apply text-2xs text-ink-secondary mt-1.5 flex items-center gap-1;
-  }
-
-  /* ============================================================
-     SIDEBAR NAV
-     ============================================================ */
-
-  .nav-item {
-    @apply flex items-center gap-2 px-3 py-1.5 text-xs text-[#7A8BA4] cursor-pointer
-           border-l-2 border-transparent transition-all duration-100;
-  }
-
-  .nav-item:hover {
-    @apply bg-white/5 text-[#B3BAC5];
-  }
-
-  .nav-item.active {
-    @apply bg-brand-blue/20 text-white border-l-brand-blue;
-  }
-
-  .nav-section {
-    @apply px-3 pt-3 pb-1 text-[9px] font-medium tracking-widest text-[#3D4F66] uppercase;
-  }
-
-  /* ============================================================
-     BADGES
-     ============================================================ */
-
-  .badge {
-    @apply inline-flex items-center gap-1 text-[10px] font-medium px-2 py-0.5 rounded-full;
-  }
-
-  .badge-ok { @apply bg-status-ok-bg text-status-ok-text; }
-  .badge-warning { @apply bg-status-warning-bg text-status-warning-text; }
-  .badge-danger { @apply bg-status-danger-bg text-status-danger-text; }
-  .badge-info { @apply bg-status-info-bg text-status-info-text; }
-  .badge-neutral { @apply bg-surface-secondary text-ink-secondary; }
-
-  /* ============================================================
-     PROFILE PILLS
-     ============================================================ */
-
-  .pill-hibrido { @apply bg-profile-hybrid-bg text-profile-hybrid-text; }
-  .pill-farmer { @apply bg-profile-farmer-bg text-profile-farmer-text; }
-  .pill-hunter { @apply bg-profile-hunter-bg text-profile-hunter-text; }
-  .pill-inside { @apply bg-profile-inside-bg text-profile-inside-text; }
-
-  /* ============================================================
-     BUTTONS
-     ============================================================ */
-
-  .btn {
-    @apply inline-flex items-center justify-center gap-1.5 text-xs font-medium
-           rounded px-3 py-1.5 transition-all duration-100 cursor-pointer
-           select-none active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed;
-  }
-
   .btn-primary {
-    @apply btn bg-brand-blue text-white hover:bg-[#1250A8] border border-brand-blue;
+    @apply bg-blue-700 text-white px-4 py-2 rounded-lg hover:bg-blue-800 transition-colors font-medium;
   }
-
-  .btn-ghost {
-    @apply btn bg-transparent text-ink-secondary border border-surface-border hover:bg-surface-secondary;
+  .btn-secondary {
+    @apply bg-gray-100 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-200 transition-colors font-medium;
   }
-
-  .btn-danger {
-    @apply btn bg-status-danger text-white hover:bg-[#B82D0A] border border-status-danger;
+  .badge-green {
+    @apply bg-green-100 text-green-800 text-xs font-medium px-2 py-0.5 rounded-full;
   }
-
-  .btn-icon {
-    @apply btn p-1.5 rounded-md;
+  .badge-red {
+    @apply bg-red-100 text-red-800 text-xs font-medium px-2 py-0.5 rounded-full;
   }
-
-  /* ============================================================
-     FORM ELEMENTS
-     ============================================================ */
-
-  .form-input {
-    @apply w-full px-3 py-2 text-xs border border-surface-border rounded-md
-           bg-white text-ink-primary placeholder:text-ink-tertiary
-           focus:outline-none focus:border-brand-blue focus:ring-1 focus:ring-brand-blue/20
-           transition-colors duration-100;
+  .badge-yellow {
+    @apply bg-yellow-100 text-yellow-800 text-xs font-medium px-2 py-0.5 rounded-full;
   }
-
-  .form-label {
-    @apply block text-[10px] font-medium text-ink-secondary mb-1;
+  .badge-blue {
+    @apply bg-blue-100 text-blue-800 text-xs font-medium px-2 py-0.5 rounded-full;
   }
-
-  .form-error {
-    @apply text-[10px] text-status-danger-text mt-0.5;
+  .sidebar-item {
+    @apply flex items-center gap-3 px-3 py-2 rounded-lg text-gray-600 hover:bg-gray-100 hover:text-gray-900 transition-colors cursor-pointer;
   }
-
-  /* ============================================================
-     TABLE
-     ============================================================ */
-
-  .data-table {
-    @apply w-full text-xs;
+  .sidebar-item-active {
+    @apply sidebar-item bg-blue-50 text-blue-700;
   }
-
-  .data-table thead tr {
-    @apply border-b border-surface-border bg-surface-secondary;
+  .input {
+    @apply border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent w-full;
   }
-
-  .data-table thead th {
-    @apply px-3 py-2 text-left text-[10px] font-medium text-ink-secondary uppercase tracking-wider;
+  .label {
+    @apply block text-sm font-medium text-gray-700 mb-1;
   }
-
-  .data-table tbody tr {
-    @apply border-b border-surface-border hover:bg-surface-secondary/50 transition-colors;
+  .kpi-card {
+    @apply card flex flex-col gap-1;
   }
-
-  .data-table tbody tr:last-child {
-    @apply border-b-0;
+  .kpi-value {
+    @apply text-2xl font-bold text-gray-900;
   }
-
-  .data-table tbody td {
-    @apply px-3 py-2 text-ink-primary;
+  .kpi-label {
+    @apply text-sm text-gray-500;
   }
-
-  /* ============================================================
-     KANBAN
-     ============================================================ */
-
-  .kanban-column {
-    @apply flex-1 min-w-0 flex flex-col;
+  .section-title {
+    @apply text-lg font-semibold text-gray-900;
   }
-
-  .kanban-header {
-    @apply px-2.5 py-1.5 rounded-t-md text-xs font-medium;
+  .page-header {
+    @apply flex items-center justify-between mb-6;
   }
-
-  .kanban-body {
-    @apply flex-1 border border-surface-border border-t-0 rounded-b-md p-1.5
-           flex flex-col gap-1.5 min-h-[160px] bg-surface-page/50;
-  }
-
-  .kanban-card {
-    @apply bg-white border border-surface-border rounded-md p-2.5 cursor-pointer
-           border-l-2 hover:shadow-card transition-all duration-100;
-  }
-
-  /* ============================================================
-     STATUS DOTS (4DX Scoreboard)
-     ============================================================ */
-
-  .placar-dot {
-    @apply w-2.5 h-2.5 rounded-full flex-shrink-0;
-  }
-
-  .placar-verde { @apply placar-dot bg-status-ok; }
-  .placar-vermelho { @apply placar-dot bg-status-danger; }
-  .placar-pendente { @apply placar-dot bg-surface-border; }
-
-  /* ============================================================
-     PROGRESS BARS
-     ============================================================ */
-
-  .progress-bar {
-    @apply h-1.5 bg-surface-border rounded-full overflow-hidden;
-  }
-
-  .progress-fill {
-    @apply h-full rounded-full transition-all duration-300;
-  }
-
-  /* ============================================================
-     ANIMATIONS
-     ============================================================ */
-
-  .animate-in {
-    @apply animate-fade-in;
-  }
-
-  /* ============================================================
-     MOBILE RESPONSIVE
-     ============================================================ */
-
-  @media (max-width: 768px) {
-    .sidebar {
-      width: 100%;
-      height: auto;
-      position: fixed;
-      bottom: 0;
-      top: auto;
-      left: 0;
-      right: 0;
-      flex-direction: row;
-      z-index: 50;
-    }
-
-    .main-content {
-      margin-left: 0;
-      margin-bottom: 56px;
-    }
-
-    .topbar {
-      position: sticky;
-      top: 0;
-    }
-  }
-
-  /* ============================================================
-     PWA SAFE AREAS
-     ============================================================ */
-
-  @supports (padding: env(safe-area-inset-bottom)) {
-    .sidebar {
-      padding-bottom: env(safe-area-inset-bottom);
-    }
-  }
-
-  /* ============================================================
-     PRINT STYLES
-     ============================================================ */
-
-  @media print {
-    .sidebar, .topbar { display: none !important; }
-    .main-content { margin: 0 !important; }
-    .card { break-inside: avoid; }
-  }
-}
-
-@layer utilities {
-  .text-gradient {
-    background: linear-gradient(135deg, var(--color-brand), var(--color-coral));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  .scrollbar-hide {
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-  }
-
-  .scrollbar-hide::-webkit-scrollbar { display: none; }
 }
