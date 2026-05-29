@@ -20,7 +20,7 @@ function LoginForm() {
       setError('E-mail ou senha incorretos')
       setLoading(false)
     } else {
-      router.push('/war-room')
+      router.push('/4dx')
     }
   }
 
