@@ -92,7 +92,8 @@ export function useWIGs(consultorId?: string) {
   const targetId = consultorId ?? profile?.id
 
   return useQuery({
-    queryKey: ['wigs', targetId],
+    queryKey: ['wigs', targetId, profile?.grupo_id],
+    enabled: !!profile,
     queryFn: async () => {
       if (!targetId) return []
       let query = supabase
@@ -111,19 +112,11 @@ export function useWIGs(consultorId?: string) {
 
       const { data, error } = await query
       if (error) throw error
-
-      return (data ?? []).map(wig => ({
-        ...wig,
-        pct_mci: wig.meta_para > 0
-          ? Math.round((wig.realizado / wig.meta_para) * 1000) / 10
-          : 0
-      })) as WIGWithConsultor[]
+      return data
     },
-    enabled: !!profile,
-    staleTime: 2 * 60 * 1000,
+    staleTime: 60 * 1000,
   })
 }
-
 export function useActiveWIG(consultorId?: string) {
   const { profile } = useAuth()
   const targetId = consultorId ?? profile?.id
